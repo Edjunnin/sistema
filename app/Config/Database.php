@@ -24,6 +24,8 @@ class Database extends Config
      *
      * @var array<string, mixed>
      */
+    // Valores padrão: banco do servidor da faculdade (funciona sem .env).
+    // No seu computador, o .env (não versionado) sobrescreve com root/sistema.
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',

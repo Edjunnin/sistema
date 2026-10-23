@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\ConteudoModel;
 
 class ConteudoController extends BaseController
@@ -100,7 +101,7 @@ class ConteudoController extends BaseController
         ]);
         }
         $model->update($id, $dadosPost);        
-        edirect()
+        return redirect()
         ->to(site_url('conteudos'))
         ->with('mensagem', 'Conteúdo atualizado com sucesso.');
     }

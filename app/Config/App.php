@@ -16,7 +16,8 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    //public string $baseURL = 'http://localhost:8080/';
+    // Valor padrão: servidor da faculdade.
+    // No seu computador, o .env (não versionado) sobrescreve com app.baseURL.
     public string $baseURL = 'http://192.168.51.20/a28408/ads209/sistema/public/';
     
     /**

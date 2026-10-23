@@ -1,74 +1,118 @@
-<<<<<<< HEAD
-# CodeIgniter 4 Application Starter
+# Sistema
 
-## What is CodeIgniter?
+Projeto da faculdade em **CodeIgniter 4** (PHP), com páginas de conteúdo
+(Home, Habilidades, História, Planos, Contato) e um CRUD simples de
+conteúdos gravados no banco de dados.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Requisitos
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+- **PHP 8.2 ou superior** com as extensões `intl`, `mbstring` e `mysqli`
+- **MySQL** ou **MariaDB**
+- **Composer** (apenas para instalar as dependências)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Installation & updates
+## Rodando no seu computador
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+```powershell
+composer install
+```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Crie o arquivo `.env` a partir do modelo:
 
-## Setup
+```powershell
+Copy-Item .env.example .env
+```
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Crie o banco e as tabelas:
 
-## Important Change with index.php
+```powershell
+mysql -u root -e "CREATE DATABASE sistema CHARACTER SET utf8mb4"
+php spark migrate
+php spark db:seed ConteudoSeeder
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Suba o servidor:
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+```powershell
+php spark serve --port 8081
+```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+Acesse **http://localhost:8081/home**
 
-## Repository Management
+> A porta 8080 pode estar ocupada em alguns computadores; por isso o
+> exemplo usa a 8081. Se usar outra, ajuste `app.baseURL` no `.env`.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+---
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Publicando no servidor da faculdade
 
-## Server Requirements
+1. **Envie os arquivos** do projeto para o servidor, mantendo a pasta
+   `vendor/` que já existe lá (ela não vai no Git).
+2. O documento raiz do site deve apontar para a pasta **`public/`**:
+   `.../ads209/sistema/public/`
+3. **Não precisa criar `.env`**: os valores padrão em `app/Config`
+   já apontam para o servidor.
+4. O banco `a28408` já existe. Se a tabela `Conteudo` estiver vazia,
+   importe `database/sistema.sql` pelo phpMyAdmin (a importação não
+   duplica registros).
+5. A pasta `writable/` precisa ter permissão de escrita para o
+   servidor web.
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+Se as credenciais do servidor mudarem, crie um `.env` lá com os
+valores novos (veja `.env.example`).
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+---
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+## Banco de dados
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+A tabela `Conteudo` tem a coluna `Id` (com "I" maiúsculo), `Titulo` e
+`Texto`. Os registros 1 a 5 correspondem às páginas:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-=======
-# sistema
-# sistema
->>>>>>> b942b3814a64ae7949f53ab8206b540f0a3649a6
+| Id | Página |
+|----|----------------|
+| 1  | Home           |
+| 2  | Habilidades    |
+| 3  | História       |
+| 4  | Planos futuros |
+| 5  | Contato        |
+
+Três formas de criar o banco:
+
+- `php spark migrate` + `php spark db:seed ConteudoSeeder` (recomendado)
+- Importar `database/sistema.sql` no phpMyAdmin
+- O banco do servidor da faculdade já está pronto
+
+---
+
+## Estrutura principal
+
+```
+app/
+  Config/        configuração (URL, banco, rotas)
+  Controllers/   ConteudoController (páginas + CRUD)
+  Models/        ConteudoModel
+  Views/         layout, menu e páginas
+  Database/      migrations e seeder
+database/
+  sistema.sql    estrutura + dados iniciais (para phpMyAdmin)
+public/
+  assets/css/    estilo.css
+  index.php      ponto de entrada
+```
+
+---
+
+## Rotas
+
+| Rota | Descrição |
+|------|-----------|
+| `/home` | Página inicial |
+| `/minhahab` | Habilidades |
+| `/minhahis` | História |
+| `/planofuturo` | Planos futuros |
+| `/contato` | Contato |
+| `/conteudos` | Lista dos conteúdos |
+| `/conteudos/editar/{id}` | Editar conteúdo |
