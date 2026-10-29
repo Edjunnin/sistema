@@ -6,14 +6,13 @@
         <title><?= $conteudo['Titulo'] ?? 'Meu Site'; ?></title>
         <link rel="stylesheet" href="<?= base_url('assets/css/estilo.css') ?>">
     </head>
-<body>
-    
-    <header>
-        <?=$this->include('layout/menu') ?>
-    </header>
-    <main class="container">
-    <?= $this->renderSection('conteudo') ?>
-    </main>
+    <body>
+        <header>
+            <?= $this->include('layout/menu') ?>
+        </header>
 
-</body>
+        <main class="container">
+            <?= $this->renderSection('conteudo') ?>
+        </main>
+    </body>
 </html>

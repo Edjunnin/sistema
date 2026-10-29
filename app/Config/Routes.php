@@ -14,3 +14,5 @@ $routes->get('/planofuturo', 'ConteudoController::planofuturo');
 $routes->get('conteudos', 'ConteudoController::listar');
 $routes->get('conteudos/editar/(:num)', 'ConteudoController::editar/$1');
 $routes->post('conteudos/atualizar/(:num)', 'ConteudoController::atualizar/$1');
+
+service('auth')->routes($routes);
