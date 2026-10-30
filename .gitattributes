@@ -1,0 +1,26 @@
+# Normaliza o fim de linha de TODOS os arquivos versionados.
+# Sem isso, uma maquina grava CRLF e outra LF, o Git entende que o
+# arquivo inteiro mudou e o merge vira conflito em arquivo que ninguem
+# editou (foi o que aconteceu na aula de 29/10).
+* text=auto eol=lf
+
+# Arquivos que nao devem ser tratados como texto
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.eot  binary
+*.pdf  binary
+*.zip  binary
+*.rar  binary
+*.phar binary
+
+# Scripts do Windows precisam continuar com CRLF
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
