@@ -13,7 +13,7 @@ $routes->get('/home', 'ConteudoController::index');
 $routes->get('/contato', 'ConteudoController::contato');
 $routes->get('/minhahab', 'ConteudoController::minhahab');
 $routes->get('/minhahis', 'ConteudoController::minhahis');
-$routes->get('/planofuturo', 'ConteudoController::plsanofuturo');
+$routes->get('/planofuturo', 'ConteudoController::planofuturo');
     
 // Rotas que exigem autenticação por sessão
 $routes->group('', ['filter' => 'session'], static function ($routes) {
