@@ -1,37 +1,33 @@
-<?= $this->extend('layout/main') ?>
-<?= $this->section('titulo') ?>Conteúdos<?= $this->endSection() ?>
+<?= $this->extend('admin/main') ?>
 <?= $this->section('conteudo') ?>
 
-<header class="pagina-cabecalho">
-    <h1>Conteúdos cadastrados</h1>
-    <p>Gerencie os textos que aparecem nas páginas do site.</p>
-</header>
+<h1>Conteúdos cadastrados!!!!!</h1>
 
-<?php if ($mensagem = session()->getFlashdata('mensagem')): ?>
-    <div class="alerta alerta-sucesso"><?= esc($mensagem) ?></div>
-<?php endif; ?>
+    <?php if ($mensagem = session()->getFlashdata('mensagem')): ?>
+        <p><?= esc($mensagem) ?></p>
+    <?php endif; ?>
 
-<?php if (empty($conteudos)): ?>
-    <div class="alerta alerta-vazio">Nenhum conteúdo encontrado.</div>
-<?php else: ?>
-    <div class="tabela-wrapper">
-        <table class="tabela">
+    <?php if (empty($conteudos)): ?>
+        <p>Nenhum conteúdo encontrado.</p>
+    <?php else: ?>
+        <table class="tabela-estilizada">
             <thead>
                 <tr>
-                    <th class="col-id">Id</th>
-                    <th class="col-titulo">Título</th>
-                    <th class="col-texto">Texto</th>
-                    <th class="col-acao">Ação</th>
+                    <th>Id</th>
+                    <th>Título</th>
+                    <th>Texto</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php foreach ($conteudos as $item): ?>
                     <tr>
-                        <td class="col-id"><?= esc($item['Id']) ?></td>
-                        <td class="col-titulo"><?= esc($item['Titulo']) ?></td>
-                        <td class="col-texto"><?= nl2br(esc($item['Texto'] ?? '')) ?></td>
-                        <td class="col-acao">
-                            <a class="btn-acao" href="<?= site_url('conteudos/editar/' . $item['Id']) ?>">
+                        <td><?= esc($item['Id']) ?></td>
+                        <td><?= esc($item['Titulo']) ?></td>
+                        <td><?= nl2br(esc($item['Texto'] ?? '')) ?></td>
+                        <td>
+                            <a href="<?= site_url('conteudos/editar/' . $item['Id']) ?>">
                                 Editar
                             </a>
                         </td>
@@ -39,7 +35,6 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
 
 <?= $this->endSection() ?>

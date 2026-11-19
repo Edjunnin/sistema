@@ -17,9 +17,9 @@ $routes->get('/planofuturo', 'ConteudoController::planofuturo');
     
 // Rotas que exigem autenticação por sessão
 $routes->group('', ['filter' => 'session'], static function ($routes) {
- $routes->get('conteudos', 'ConteudoController::listar');
- $routes->get('conteudos/editar/(:num)', 'ConteudoController::editar/$1');
- $routes->post('conteudos/atualizar/(:num)', 'ConteudoController::atualizar/$1');
+ $routes->get('conteudos', 'Admin\Painel::listar');
+ $routes->get('conteudos/editar/(:num)', 'Admin\Painel::editar/$1');
+ $routes->post('conteudos/atualizar/(:num)', 'Admin\Painel::atualizar/$1');
 });
 
 // Painel: exige login e grupo admin
